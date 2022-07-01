@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="LetsMarket.Menu4.MenuItem">
+    <Position X="7.5" Y="0.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAIABAAAQAAQAAREAAgAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MenuItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LetsMarket.Menu4.Program">
+    <Position X="12" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LetsMarket.Menu4.Funcionarios">
+    <Position X="4" Y="0.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAIAAA=</HashCode>
+      <FileName>Funcionario.cs</FileName>
+      <NewMemberFileName>Produtos.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LetsMarket.Menu4.Produtos">
+    <Position X="4" Y="2.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Produtos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
