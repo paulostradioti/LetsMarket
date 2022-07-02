@@ -20,8 +20,12 @@ namespace LetsMarket.Menu4
             funcionarios.Add(new MenuItem("Cadastrar Funcionários", Funcionarios.CadastrarFuncionarios));
             funcionarios.Add(new MenuItem("Listar Funcionários", Funcionarios.ListarFuncionarios));
 
+            var submenu = new MenuItem("Submenu");
+            submenu.Add(new MenuItem("item do submenu"));
+
             menu.Add(produtos);
             menu.Add(funcionarios);
+            menu.Add(submenu);
 
             menu.Execute();
         }
