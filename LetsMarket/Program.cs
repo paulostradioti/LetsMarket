@@ -1,47 +1,32 @@
-﻿using BetterConsoleTables;
-using System.Text;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace LetsMarket
 {
-    public class Printer<T> 
-        where T : IImprimivel,
-        IComparable<T>,
-        new()
-    {
-        public static void Print()
-        {
-            T tipo = new T();
-            Console.WriteLine(tipo.ToString());
-        }
-    }
-
-    public interface IImprimivel
-    { }
-
-    public class NotaFiscal : IImprimivel
-    {
-        public NotaFiscal(int imposto)
-        {
-
-        }
-
-        public override string ToString()
-        {
-            return "Eu sou uma nota fiscal";
-        }
-    }
-    public class Extrato : IImprimivel
-    {
-        public override string ToString()
-        {
-            return "Eu sou um extrato";
-        }
-    }
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+            Console.Title = "Let's Store";
 
+            var menu = new MenuItem("Menu Principal");
+
+            var produtos = new MenuItem("Produtos");
+            produtos.Add(new MenuItem("Cadastrar Produtos", Produtos.CadastrarProdutos));
+            produtos.Add(new MenuItem("Listar Produtos", Produtos.ListarProdutos));
+
+            var funcionarios = new MenuItem("Funcionários");
+            funcionarios.Add(new MenuItem("Cadastrar Funcionários", Funcionarios.CadastrarFuncionarios));
+            funcionarios.Add(new MenuItem("Listar Funcionários", Funcionarios.ListarFuncionarios));
+
+            var submenu = new MenuItem("Submenu");
+            submenu.Add(new MenuItem("item do submenu"));
+
+            menu.Add(produtos);
+            menu.Add(funcionarios);
+            menu.Add(submenu);
+
+            menu.Execute();
         }
     }
 }
