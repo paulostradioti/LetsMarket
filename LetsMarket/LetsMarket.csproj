@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="BetterConsoleTables" Version="1.1.3" />
+    <PackageReference Include="GetPass" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
