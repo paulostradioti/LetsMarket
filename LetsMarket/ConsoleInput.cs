@@ -59,5 +59,16 @@ namespace LetsMarket
 
             return Convert.ToBoolean(input);
         }
+
+        public static void WriteError(string message)
+        {
+            var original = Console.ForegroundColor;
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ForegroundColor = original;
+
+            Console.ResetColor();
+        }
     }
 }

@@ -52,7 +52,7 @@
 
                 case MenuType.Command:
                     action();
-                    Console.ReadLine();
+                    //Console.ReadLine();
                     break;
 
                 default:

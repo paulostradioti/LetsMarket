@@ -1,5 +1,6 @@
 ﻿using BetterConsoleTables;
 using GetPass;
+using Sharprompt;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -9,9 +10,12 @@ namespace LetsMarket
     {
         static void Main(string[] args)
         {
+            ConfiguraPrompt();
             Console.Title = "Let's Store";
 
-            //FazLogin();
+
+
+            //VerificaLogin();
 
             var menu = new MenuItem("Menu Principal");
 
@@ -22,6 +26,8 @@ namespace LetsMarket
             var funcionarios = new MenuItem("Funcionários");
             funcionarios.Add(new MenuItem("Cadastrar Funcionários", Funcionario.CadastrarFuncionarios));
             funcionarios.Add(new MenuItem("Listar Funcionários", Funcionario.ListarFuncionarios));
+            funcionarios.Add(new MenuItem("Editar Funcionários", Funcionario.EditarFuncionario));
+            funcionarios.Add(new MenuItem("Remover Funcionários", Funcionario.RemoverFuncionario));
 
             var submenu = new MenuItem("Submenu");
             submenu.Add(new MenuItem("item do submenu"));
@@ -33,23 +39,44 @@ namespace LetsMarket
             menu.Execute();
         }
 
-        private static void FazLogin()
+        private static void ConfiguraPrompt()
         {
+            Prompt.ColorSchema.Answer = ConsoleColor.White;
+            Prompt.ColorSchema.Select = ConsoleColor.White;
 
-            var title = "SYSTEM LOGIN";
-            Console.WriteLine(title);
+            Prompt.Symbols.Prompt = new Symbol("", "");
+            Prompt.Symbols.Done = new Symbol("", "");
+            Prompt.Symbols.Error = new Symbol("", "");
             
-            Console.Write("login: ");
-            var username = Console.ReadLine();
-            var password = ConsolePasswordReader.Read("senha: ");
+        }
 
-            if (!LoginIsValid(username, password))
+        private static void VerificaLogin()
+        {
+            var loggedIn = false;
+            var attempts = 0;
+
+            do
             {
-                Console.WriteLine("Dados Incorretos");
+                attempts++;
+                Console.Clear();
 
-                Thread.Sleep(1000);
-                Environment.Exit(0);
-            }
+                if (attempts > 1)
+                {
+                    Console.WriteLine(Environment.NewLine);
+                    ConsoleInput.WriteError("DADOS INCORRETOS");
+                    Console.WriteLine(Environment.NewLine);
+                }
+
+                Console.WriteLine("SYSTEM LOGIN");
+                
+                var username = ConsoleInput.GetString("login");
+                var password = ConsoleInput.GetPassword("senha");
+
+                if (LoginIsValid(username, password))
+                    loggedIn = true;
+                   
+            } while (!loggedIn);
+            
         }
 
         private static bool LoginIsValid(string? username, string password)

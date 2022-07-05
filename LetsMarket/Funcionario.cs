@@ -1,50 +1,43 @@
-﻿namespace LetsMarket
+﻿using BetterConsoleTables;
+using Sharprompt;
+using System.ComponentModel.DataAnnotations;
+
+namespace LetsMarket
 {
-    public partial class Funcionario
+    public class Funcionario
     {
+        [Display(Name = "Nome")]
+        [Required]
         public string Nome { get; set; }
+
+        [Display(Name = "Login")]
+        [Required]
         public string Login { get; set; }
+
+        [Display(Name = "Senha")]
+        [Required(ErrorMessage = "A senha é obrigatória")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Display(Name = "Categoria")]
         public EmployeeCategory Category { get; set; }
 
         public static void CadastrarFuncionarios()
         {
-            var nome = ConsoleInput.GetString("Nome");
-            var suggestion = CreateLoginSuggestionBasedOnName(nome);
-            var login = ConsoleInput.GetString("Login", suggestion);
-            var senha = ConsoleInput.GetPassword("Senha");
-            var category = EmployeeCategory.Assistant;
+            var empregado = Prompt.Bind<Funcionario>();
 
-            foreach (var categoria in Enum.GetNames<EmployeeCategory>())
-            {
-                var texto = $"O funcionário é {categoria}";
-                var valor = ConsoleInput.GetBoolean(texto, BooleanType.YN);
-
-                if (valor)
-                {
-                    category = Enum.Parse<EmployeeCategory>(categoria);
-                    break;
-                }
-            }
-
-            var empregado = new Funcionario
-            {
-                Nome = nome,
-                Login = login,
-                Password = senha,
-                Category = category
-            };
+            var save = Prompt.Confirm("Deseja Salvar?");
+            if (!save)
+                return;
 
             Database.Funcionarios.Add(empregado);
             Database.Save();
-
-            Console.WriteLine("Cadastrando Funcionários");
         }
 
         private static string CreateLoginSuggestionBasedOnName(string nome)
         {
             var parts = nome?.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-            var suggestion = parts?.Length > 0 ? (parts.Length > 1 ? $"{parts[0]}.{parts[parts.Length - 1]}" : $"{parts[0]}" ) : "";
+            var suggestion = parts?.Length > 0 ? (parts.Length > 1 ? $"{parts[0]}.{parts[parts.Length - 1]}" : $"{parts[0]}") : "";
 
             return suggestion.ToLower();
         }
@@ -54,8 +47,44 @@
             Console.WriteLine("Listando Funcionários");
             Console.WriteLine();
 
-            foreach (var funcionario in Database.Funcionarios)
-                Console.WriteLine($"{funcionario.Nome} - {funcionario.Category} - {funcionario.Login}");
+            var table = new Table(TableConfiguration.UnicodeAlt());
+            table.From(Database.Funcionarios);
+            Console.WriteLine(table.ToString());
+
+            Console.ReadKey();
+        }
+
+        public override string ToString()
+        {
+            return Nome;
+        }
+
+        public static void EditarFuncionario()
+        {
+            var employee = Prompt.Select("Selecione o Funcionário para Editar", Database.Funcionarios, defaultValue: Database.Funcionarios[0]);
+
+            Prompt.Bind(employee);
+
+            Database.Save();
+        }
+
+        public static void RemoverFuncionario()
+        {
+            if (Database.Funcionarios.Count == 1)
+            {
+                ConsoleInput.WriteError("Não é possível remover todos os usuários.");
+                Console.ReadKey();
+                return;
+            }
+
+            var employee = Prompt.Select("Selecione o Funcionário para Remover", Database.Funcionarios);
+            var confirm = Prompt.Confirm("Tem Certeza?", false);
+
+            if (!confirm)
+                return;
+
+            Database.Funcionarios.Remove(employee);
+            Database.Save();
         }
     }
 }
