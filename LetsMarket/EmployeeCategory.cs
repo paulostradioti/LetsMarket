@@ -9,12 +9,13 @@ namespace LetsMarket
 {
     public enum EmployeeCategory
     {
-        [Display(Name = "Cashier")]
+        [Display(Name = "Caixa")]
         Cashier,
 
-        [Display(Name = "Manager")]
+        [Display(Name = "Gerente")]
         Manager,
 
+        [Display(Name = "Assistente")]
         Assistant,
     }
 }

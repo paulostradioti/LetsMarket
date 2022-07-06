@@ -52,7 +52,7 @@
 
                 case MenuType.Command:
                     action();
-                    //Console.ReadLine();
+                    Console.ReadKey(true);
                     break;
 
                 default:
@@ -75,8 +75,6 @@
                     Console.WriteLine(lineSeparator);
                     Console.WriteLine(menuTitle);
                     Console.WriteLine(lineSeparator);
-
-
 
                     for (int i = 0; i < items.Count; i++)
                     {
@@ -125,9 +123,7 @@
                         default:
                             break;
                     }
-
-
-                } while (key.Key != ConsoleKey.Escape);
+                } while (true);
             }
         }
 

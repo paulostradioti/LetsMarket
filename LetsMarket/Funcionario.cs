@@ -25,13 +25,12 @@ namespace LetsMarket
         public static void CadastrarFuncionarios()
         {
             var empregado = Prompt.Bind<Funcionario>();
-
             var save = Prompt.Confirm("Deseja Salvar?");
             if (!save)
                 return;
 
             Database.Funcionarios.Add(empregado);
-            Database.Save();
+            Database.Save(DatabaseOption.Funcionarios);
         }
 
         private static string CreateLoginSuggestionBasedOnName(string nome)
@@ -50,8 +49,6 @@ namespace LetsMarket
             var table = new Table(TableConfiguration.UnicodeAlt());
             table.From(Database.Funcionarios);
             Console.WriteLine(table.ToString());
-
-            Console.ReadKey();
         }
 
         public override string ToString()
@@ -59,16 +56,16 @@ namespace LetsMarket
             return Nome;
         }
 
-        public static void EditarFuncionario()
+        public static void EditarFuncionarios()
         {
             var employee = Prompt.Select("Selecione o Funcionário para Editar", Database.Funcionarios, defaultValue: Database.Funcionarios[0]);
 
             Prompt.Bind(employee);
 
-            Database.Save();
+            Database.Save(DatabaseOption.Funcionarios);
         }
 
-        public static void RemoverFuncionario()
+        public static void RemoverFuncionarios()
         {
             if (Database.Funcionarios.Count == 1)
             {
@@ -84,7 +81,7 @@ namespace LetsMarket
                 return;
 
             Database.Funcionarios.Remove(employee);
-            Database.Save();
+            Database.Save(DatabaseOption.Funcionarios);
         }
     }
 }
