@@ -12,16 +12,17 @@ namespace LetsMarket
 
         [Display(Name = "Documento")]
         [Required(ErrorMessage = "O Documento é Obrigatório")]
+        [MinLength(11)]
+        [MaxLength(11)]
         public string Documento { get; set; }
 
 
         [Display(Name = "Categoria")]
-        public ClientCategory Category { get; set; }
+        public ClientCategory? Category { get; set; }
 
         public static void CadastrarClientes()
         {
             var empregado = Prompt.Bind<Cliente>();
-
 
             var save = Prompt.Confirm("Deseja Salvar?");
             if (!save)

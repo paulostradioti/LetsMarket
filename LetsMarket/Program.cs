@@ -3,8 +3,7 @@
 namespace LetsMarket
 {
     public class Program
-    {
-        static bool loggedIn = false;
+    {     
         static void Main()
         {
             ConfiguraPrompt();
@@ -38,7 +37,6 @@ namespace LetsMarket
             menu.Add(new MenuItem("Sair", () => Environment.Exit(0)));
 
             menu.Execute();
-            
         }
 
         private static void ConfiguraPrompt()

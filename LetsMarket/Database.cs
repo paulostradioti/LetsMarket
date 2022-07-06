@@ -49,7 +49,6 @@ namespace LetsMarket
 
             if (!File.Exists(_clientsDb))
             {
-                var faker = new Faker("pt_BR");
                 for (int i = 0; i < 10; i++)
                     Clientes.Add(ClienteFaker.Gerar());
                 
