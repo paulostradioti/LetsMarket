@@ -36,7 +36,7 @@ namespace LetsMarket
         private static string CreateLoginSuggestionBasedOnName(string nome)
         {
             var parts = nome?.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-            var suggestion = parts?.Length > 0 ? (parts.Length > 1 ? $"{parts[0]}.{parts[parts.Length - 1]}" : $"{parts[0]}") : "";
+            var suggestion = parts?.Length > 0 ? parts.Length > 1 ? $"{parts[0]}.{parts[parts.Length - 1]}" : $"{parts[0]}" : "";
 
             return suggestion.ToLower();
         }

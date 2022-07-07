@@ -33,7 +33,7 @@ namespace LetsMarket
         }
 
         public static string GetPassword(string prompt)
-        { 
+        {
             var password = ConsolePasswordReader.Read($"{prompt}: ");
             return password;
         }
@@ -53,7 +53,7 @@ namespace LetsMarket
             {
                 if (input.ToLower() == "s")
                     input = "true";
-                else 
+                else
                     input = "false";
             }
 

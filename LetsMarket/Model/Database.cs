@@ -51,7 +51,7 @@ namespace LetsMarket
             {
                 for (int i = 0; i < 10; i++)
                     Clientes.Add(ClienteFaker.Gerar());
-                
+
                 Save(DatabaseOption.Clients);
             }
 

@@ -74,7 +74,7 @@ namespace LetsMarket
 
                 if (itensVenda.Count > 0)
                 {
-                    relatorio.From<ItemVenda>(itensVenda);
+                    relatorio.From(itensVenda);
                     Console.WriteLine(relatorio.ToString());
                 }
 

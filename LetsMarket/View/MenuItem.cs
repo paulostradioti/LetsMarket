@@ -70,7 +70,7 @@
                     Console.Clear();
 
                     var menuTitle = $"{UNSELECTED}{title.ToUpperInvariant().PadRight(LINE_WIDTH)}|";
-                    var lineSeparator = $"|{new String('-', menuTitle.Length - 2)}|";
+                    var lineSeparator = $"|{new string('-', menuTitle.Length - 2)}|";
 
                     Console.WriteLine(lineSeparator);
                     Console.WriteLine(menuTitle);
