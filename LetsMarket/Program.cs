@@ -31,9 +31,13 @@ namespace LetsMarket
             clientes.Add(new MenuItem("Editar Clientes", Cliente.EditarClientes));
             clientes.Add(new MenuItem("Remover Clientes", Cliente.RemoverClientes));
 
+            var vendas = new MenuItem("Vendas");
+            vendas.Add(new MenuItem("Efetuar Venda", Vendas.EfetuarVenda));
+
             menu.Add(produtos);
             menu.Add(funcionarios);
             menu.Add(clientes);
+            menu.Add(vendas);
             menu.Add(new MenuItem("Sair", () => Environment.Exit(0)));
 
             menu.Execute();
