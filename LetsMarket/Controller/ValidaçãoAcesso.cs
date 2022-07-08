@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LetsMarket
 {
-    public class ValidaçãoAcesso
+    public class ValidacaoAcesso
     {
         public static void VerificaLogin()
         {

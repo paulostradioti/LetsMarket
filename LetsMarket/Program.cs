@@ -9,7 +9,7 @@ namespace LetsMarket
             Design.SetupPrompt();
             Console.Title = "Let's Store";
 
-            //VerificaLogin();
+            ValidacaoAcesso.VerificaLogin();
 
             MenuItem.CreateMenus();
         }
