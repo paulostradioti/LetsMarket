@@ -5,7 +5,7 @@ namespace LetsMarket
 {
     public class Vendas
     {
-        public class ItemVenda
+        public class ItemVenda //desconto por nivel do cadastro : ouro..
         {
             private static int _maiorColuna;
             private string _descricao;
@@ -31,8 +31,8 @@ namespace LetsMarket
 
         public static void EfetuarVenda()
         {
-            var total = decimal.Zero;
-            var max = Database.Produtos.Max(x => x.Description.Length);
+            var total = decimal.Zero; //qual a diferença de colocar o 0? 
+            var max = Database.Products.Max(x => x.Description.Length);
             ItemVenda.SetTamanho(max);
 
             var itensVenda = new List<ItemVenda>();
@@ -54,23 +54,23 @@ namespace LetsMarket
             }
             */
 
-            var produtos = Database.Produtos.ToList();
-            var sair = new Produto { Codigo = "-1", Description = "Sair", Price = 0 };
-            var fecharVenda = new Produto { Codigo = "-1", Description = "Fechar Venda", Price = 0 };
-            var cancelarItem = new Produto { Codigo = "-1", Description = "Cancelar Item", Price = 0 };
+            var produtos = Database.Products.ToList();
+            var sair = new Product { Code = "-1", Description = "Sair", Price = 0 }; //tem como melhorar?
+            var fecharVenda = new Product { Code = "-1", Description = "Fechar Venda", Price = 0 };
+            var cancelarItem = new Product { Code = "-1", Description = "Cancelar Item", Price = 0 };
 
             produtos.Add(cancelarItem);
             produtos.Add(fecharVenda);
             produtos.Add(sair);
 
-            Produto produto = null;
+            Product produto = null;
             do
             {
                 Console.Clear();
                 Console.WriteLine("EFETUANDO UMA VENDA");
 
                 var relatorio = new Table(TableConfiguration.UnicodeAlt());
-                var maiorColuna = Database.Produtos.Max(x => x.Description);
+                var maiorColuna = Database.Products.Max(x => x.Description);
 
                 if (itensVenda.Count > 0)
                 {
@@ -83,18 +83,10 @@ namespace LetsMarket
 
                 // Early Return
                 produto = Prompt.Select("Selecione o produto", produtos);
-                if (produto != sair && produto != fecharVenda && produto != cancelarItem)
+
+                if (produto == sair || produto == fecharVenda)
                 {
-                    var quantidade = Prompt.Input<int>("Informe a quantidade", defaultValue: 1);
-                    var item = new ItemVenda
-                    {
-                        Codigo = produto.Codigo,
-                        Descricao = produto.Description,
-                        PrecoUnitario = produto.Price,
-                        Quantidade = quantidade
-                    };
-                    itensVenda.Add(item);
-                    total += item.Subtotal;
+                    break;
                 }
 
                 if (produto == cancelarItem)
@@ -106,7 +98,22 @@ namespace LetsMarket
 
                     total -= item.PrecoUnitario;
                 }
-            } while (produto != sair && produto != fecharVenda);
+
+                else 
+                {
+                    var quantidade = Prompt.Input<int>("Informe a quantidade", defaultValue: 1);
+                    var item = new ItemVenda
+                    {
+                        Codigo = produto.Code,
+                        Descricao = produto.Description,
+                        PrecoUnitario = produto.Price,
+                        Quantidade = quantidade
+                    };
+                    itensVenda.Add(item);
+                    total += item.Subtotal;
+                }
+               
+            } while (true);
 
             if (produto == fecharVenda)
             {

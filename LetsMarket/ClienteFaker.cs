@@ -5,12 +5,12 @@ namespace LetsMarket
 {
     public static class ClienteFaker
     {
-        public static Faker<Cliente> Gerar()
+        public static Faker<Client> Gerar()
         {
-            Faker<Cliente> cliente = new Faker<Cliente>("pt_BR")
-                .RuleFor(s => s.Nome, f => f.Person.FullName)
-                .RuleFor(s => s.Documento, f => f.Person.Cpf())
-                .RuleFor(s => s.Category, f => f.PickRandom<ClientCategory>());
+            Faker<Client> cliente = new Faker<Client>("pt_BR")
+                .RuleFor(s => s.Name, f => f.Person.FullName)
+                .RuleFor(s => s.Document, f => f.Person.Cpf())
+                .RuleFor(s => s.Category, f => f.PickRandom<Client.ClientCategory>());
 
             return cliente;
         }
