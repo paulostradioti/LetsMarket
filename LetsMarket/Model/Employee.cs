@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LetsMarket
 {
-    public class Funcionario
+    public class Employee
     {
         [Display(Name = "Nome")]
         [Required]
-        public string Nome { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "Login")]
         [Required]
@@ -20,49 +20,61 @@ namespace LetsMarket
         public string Password { get; set; }
 
         [Display(Name = "Categoria")]
-        public EmployeeCategory Category { get; set; } 
+        public EmployeeCategory Category { get; set; }
 
-        public static void ListarFuncionarios()
+        public enum EmployeeCategory
+        {
+            [Display(Name = "Caixa")]
+            Cashier,
+
+            [Display(Name = "Gerente")]
+            Manager,
+
+            [Display(Name = "Assistente")]
+            Assistant,
+        }
+
+        public static void ListEmployee()
         {
             Console.WriteLine("Listando Funcionários");
             Console.WriteLine();
 
             var table = new Table(TableConfiguration.UnicodeAlt());
-            table.From(Database.Funcionarios);
+            table.From(Database.Employee);
             Console.WriteLine(table.ToString());
         }
 
         public override string ToString()
         {
-            return Nome;
+            return Name;
         }
 
-        public static void EditarFuncionarios()
+        public static void EditEmployee()
         {
-            var employee = Prompt.Select("Selecione o Funcionário para Editar", Database.Funcionarios, defaultValue: Database.Funcionarios[0]);
+            var employee = Prompt.Select("Selecione o Funcionário para Editar", Database.Employee, defaultValue: Database.Employee[0]);
 
             Prompt.Bind(employee);
 
-            Database.Save(DatabaseOption.Funcionarios);
+            Database.Save(DatabaseOption.Employee);
         }
 
-        public static void RemoverFuncionarios()
+        public static void RemoveEmployee()
         {
-            if (Database.Funcionarios.Count == 1)
+            if (Database.Employee.Count == 1)
             {
                 ConsoleInputLogin.WriteError("Não é possível remover todos os usuários.");
                 Console.ReadKey();
                 return;
             }
 
-            var employee = Prompt.Select("Selecione o Funcionário para Remover", Database.Funcionarios);
+            var employee = Prompt.Select("Selecione o Funcionário para Remover", Database.Employee);
             var confirm = Prompt.Confirm("Tem Certeza?", false);
 
             if (!confirm)
                 return;
 
-            Database.Funcionarios.Remove(employee);
-            Database.Save(DatabaseOption.Funcionarios);
+            Database.Employee.Remove(employee);
+            Database.Save(DatabaseOption.Employee);
         }
     }
 }

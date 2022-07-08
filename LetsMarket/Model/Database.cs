@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace LetsMarket
 {
-    public enum DatabaseOption { Funcionarios, Products, Clients }
+    public enum DatabaseOption { Employee, Products, Clients }
 
     public class Database
     {
@@ -14,18 +14,18 @@ namespace LetsMarket
         private static readonly string _productsDb = Path.Combine(_rootDirectory, "products.xml");
         private static readonly string _clientsDb = Path.Combine(_rootDirectory, "clients.xml");
 
-        public static List<Funcionario> Funcionarios = new List<Funcionario>();
-        public static List<Produto> Produtos = new List<Produto>();
-        public static List<Cliente> Clientes = new List<Cliente>();
+        public static List<Employee> Employee = new List<Employee>();
+        public static List<Product> Products = new List<Product>();
+        public static List<Client> Clients = new List<Client>();
 
         static Database()
         {
             InitializeDatabase();
         }
 
-        public static void Add(Funcionario input)
+        public static void Add(Employee input)
         {
-            Funcionarios.Add(input);
+            Employee.Add(input);
             //Como diferenciar os tipos dentro dessa lista
         }
 
@@ -33,8 +33,8 @@ namespace LetsMarket
         {
             if (!File.Exists(_employeesDb))
             {
-                Funcionarios.Add(new Funcionario { Nome = "Admin", Login = "admin", Password = "admin" });
-                Save(DatabaseOption.Funcionarios);
+                Employee.Add(new Employee { Name = "Admin", Login = "admin", Password = "admin" });
+                Save(DatabaseOption.Employee);
             }
 
             if (!File.Exists(_productsDb) && File.Exists("dados.csv"))
@@ -45,8 +45,8 @@ namespace LetsMarket
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     csv.Context.RegisterClassMap<CsvReaderClassMap>();
-                    var products = csv.GetRecords<Produto>().ToList();
-                    Produtos = products.OrderBy(x => Guid.NewGuid()).Take(10).ToList();
+                    var products = csv.GetRecords<Product>().ToList();
+                    Products = products.OrderBy(x => Guid.NewGuid()).Take(10).ToList();
                     products.ForEach(x => x.Price = decimal.Parse(faker.Price()));
 
                     Save(DatabaseOption.Products);
@@ -57,45 +57,45 @@ namespace LetsMarket
             if (!File.Exists(_clientsDb))
             {
                 for (int i = 0; i < 10; i++)
-                    Clientes.Add(ClienteFaker.Gerar());
+                    Clients.Add(ClienteFaker.Gerar());
 
                 Save(DatabaseOption.Clients);
             }
 
-            Load(DatabaseOption.Funcionarios);
+            Load(DatabaseOption.Employee);
             Load(DatabaseOption.Products);
             Load(DatabaseOption.Clients);
         }
 
         private static void Load(DatabaseOption options)
         {
-            if (options == DatabaseOption.Funcionarios)
+            if (options == DatabaseOption.Employee)
             {
-                XmlSerializer employeeSerializer = new XmlSerializer(typeof(List<Funcionario>));
+                XmlSerializer employeeSerializer = new XmlSerializer(typeof(List<Employee>));
                 using (TextReader reader = new StreamReader(_employeesDb))
                 {
-                    var funcionarios = employeeSerializer.Deserialize(reader) as List<Funcionario>;
-                    Funcionarios = funcionarios ?? new List<Funcionario>();
+                    var employee = employeeSerializer.Deserialize(reader) as List<Employee>;
+                    Employee = employee ?? new List<Employee>();
                 }
             }
 
             if (options == DatabaseOption.Products)
             {
-                XmlSerializer employeeSerializer = new XmlSerializer(typeof(List<Produto>));
+                XmlSerializer employeeSerializer = new XmlSerializer(typeof(List<Product>));
                 using (TextReader reader = new StreamReader(_productsDb))
                 {
-                    var funcionarios = employeeSerializer.Deserialize(reader) as List<Produto>;
-                    Produtos = funcionarios ?? new List<Produto>();
+                    var funcionarios = employeeSerializer.Deserialize(reader) as List<Product>;
+                    Products = funcionarios ?? new List<Product>();
                 }
             }
 
             if (options == DatabaseOption.Clients)
             {
-                XmlSerializer clientSerializer = new XmlSerializer(typeof(List<Cliente>));
+                XmlSerializer clientSerializer = new XmlSerializer(typeof(List<Client>));
                 using (TextReader reader = new StreamReader(_clientsDb))
                 {
-                    var funcionarios = clientSerializer.Deserialize(reader) as List<Cliente>;
-                    Clientes = funcionarios ?? new List<Cliente>();
+                    var client = clientSerializer.Deserialize(reader) as List<Client>;
+                    Clients = client ?? new List<Client>();
                 }
             }
         }
@@ -104,30 +104,30 @@ namespace LetsMarket
         {
             Console.WriteLine("Salvando...");
 
-            if (options == DatabaseOption.Funcionarios)
+            if (options == DatabaseOption.Employee)
             {
-                XmlSerializer employeeSerializer = new XmlSerializer(typeof(List<Funcionario>));
+                XmlSerializer employeeSerializer = new XmlSerializer(typeof(List<Employee>));
                 using (TextWriter writer = new StreamWriter(_employeesDb))
                 {
-                    employeeSerializer.Serialize(writer, Funcionarios);
+                    employeeSerializer.Serialize(writer, Employee);
                 }
             }
 
             if (options == DatabaseOption.Products)
             {
-                XmlSerializer productSerializer = new XmlSerializer(typeof(List<Produto>));
+                XmlSerializer productSerializer = new XmlSerializer(typeof(List<Product>));
                 using (TextWriter writer = new StreamWriter(_productsDb))
                 {
-                    productSerializer.Serialize(writer, Produtos);
+                    productSerializer.Serialize(writer, Products);
                 }
             }
 
             if (options == DatabaseOption.Clients)
             {
-                XmlSerializer clientSerializer = new XmlSerializer(typeof(List<Cliente>));
+                XmlSerializer clientSerializer = new XmlSerializer(typeof(List<Client>));
                 using (TextWriter writer = new StreamWriter(_clientsDb))
                 {
-                    clientSerializer.Serialize(writer, Clientes);
+                    clientSerializer.Serialize(writer, Clients);
                 }
             }
             Console.WriteLine("Salvo.");

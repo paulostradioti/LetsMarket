@@ -15,35 +15,35 @@ namespace LetsMarket
 
         public static void CadastrarClientes()
         {
-            var empregado = Prompt.Bind<Cliente>();
+            var empregado = Prompt.Bind<Client>();
 
             var save = Prompt.Confirm("Deseja Salvar?");
             if (!save)
                 return;
 
-            Database.Clientes.Add(empregado);
+            Database.Clients.Add(empregado);
             Database.Save(DatabaseOption.Clients);
         }
 
         public static void CadastrarProdutos()
         {
-            var product = Prompt.Bind<Produto>();
+            var product = Prompt.Bind<Product>();
 
             if (!Prompt.Confirm("Deseja Salvar?"))
                 return;
 
-            Database.Produtos.Add(product);
+            Database.Products.Add(product);
             Database.Save(DatabaseOption.Products);
         }
         public static void CadastrarFuncionarios()
         {
-            var empregado = Prompt.Bind<Funcionario>();
+            var empregado = Prompt.Bind<Employee>();
             var save = Prompt.Confirm("Deseja Salvar?");
             if (!save)
                 return;
 
             Database.Add(empregado);
-            Database.Save(DatabaseOption.Funcionarios);
+            Database.Save(DatabaseOption.Employee);
         }
 
         private static string CreateLoginSuggestionBasedOnName(string nome) //usar ou retirar
