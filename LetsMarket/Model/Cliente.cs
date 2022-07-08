@@ -20,17 +20,7 @@ namespace LetsMarket
         [Display(Name = "Categoria")]
         public ClientCategory? Category { get; set; }
 
-        public static void CadastrarClientes()
-        {
-            var empregado = Prompt.Bind<Cliente>();
-
-            var save = Prompt.Confirm("Deseja Salvar?");
-            if (!save)
-                return;
-
-            Database.Clientes.Add(empregado);
-            Database.Save(DatabaseOption.Clients);
-        }
+       
         public static void ListarClientes()
         {
             Console.WriteLine("Listando Clientes");
@@ -59,7 +49,7 @@ namespace LetsMarket
         {
             if (Database.Clientes.Count == 1)
             {
-                ConsoleInput.WriteError("Não é possível remover todos os usuários.");
+                ConsoleInputLogin.WriteError("Não é possível remover todos os usuários.");
                 Console.ReadKey();
                 return;
             }

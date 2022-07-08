@@ -20,26 +20,7 @@ namespace LetsMarket
         public string Password { get; set; }
 
         [Display(Name = "Categoria")]
-        public EmployeeCategory Category { get; set; }
-
-        public static void CadastrarFuncionarios()
-        {
-            var empregado = Prompt.Bind<Funcionario>();
-            var save = Prompt.Confirm("Deseja Salvar?");
-            if (!save)
-                return;
-
-            Database.Funcionarios.Add(empregado);
-            Database.Save(DatabaseOption.Funcionarios);
-        }
-
-        private static string CreateLoginSuggestionBasedOnName(string nome)
-        {
-            var parts = nome?.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-            var suggestion = parts?.Length > 0 ? parts.Length > 1 ? $"{parts[0]}.{parts[parts.Length - 1]}" : $"{parts[0]}" : "";
-
-            return suggestion.ToLower();
-        }
+        public EmployeeCategory Category { get; set; } 
 
         public static void ListarFuncionarios()
         {
@@ -69,7 +50,7 @@ namespace LetsMarket
         {
             if (Database.Funcionarios.Count == 1)
             {
-                ConsoleInput.WriteError("Não é possível remover todos os usuários.");
+                ConsoleInputLogin.WriteError("Não é possível remover todos os usuários.");
                 Console.ReadKey();
                 return;
             }

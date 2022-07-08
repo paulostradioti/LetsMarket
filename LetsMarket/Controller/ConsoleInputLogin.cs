@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace LetsMarket
 {
-    public static class ConsoleInput
+    public static class ConsoleInputLogin
     {
-        public static int GetInt(string prompt)
-        {
-            Console.Write($"{prompt}: ");
-            var input = Console.ReadLine();
-            int.TryParse(input, out int value);
+        //public static int GetInt(string prompt)
+        //{
+        //    Console.Write($"{prompt}: ");
+        //    var input = Console.ReadLine();
+        //    int.TryParse(input, out int value);
 
-            return value;
-        }
+        //    return value;
+        //} 
 
         public static string GetString(string prompt, string suggestion = "")
         {
@@ -38,27 +38,27 @@ namespace LetsMarket
             return password;
         }
 
-        public static bool GetBoolean(string prompt, BooleanType type)
-        {
-            var opcoes = type switch
-            {
-                BooleanType.YN => "S/N",
-                _ => "true/false"
-            };
+        //public static bool GetBoolean(string prompt, BooleanType type)
+        //{
+        //    var opcoes = type switch
+        //    {
+        //        BooleanType.YN => "S/N",
+        //        _ => "true/false"
+        //    };
 
-            Console.Write($"{prompt}? ({opcoes}) ");
-            string input = Console.ReadLine() ?? string.Empty;
+        //    Console.Write($"{prompt}? ({opcoes}) ");
+        //    string input = Console.ReadLine() ?? string.Empty;
 
-            if (type == BooleanType.YN)
-            {
-                if (input.ToLower() == "s")
-                    input = "true";
-                else
-                    input = "false";
-            }
+        //    if (type == BooleanType.YN)
+        //    {
+        //        if (input.ToLower() == "s")
+        //            input = "true";
+        //        else
+        //            input = "false";
+        //    }
 
-            return Convert.ToBoolean(input);
-        }
+        //    return Convert.ToBoolean(input);
+        //}
 
         public static void WriteError(string message)
         {

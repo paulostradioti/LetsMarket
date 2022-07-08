@@ -5,7 +5,7 @@ namespace LetsMarket
 {
     public class Vendas
     {
-        public class ItemVenda
+        public class ItemVenda //desconto por nivel do cadastro : ouro..
         {
             private static int _maiorColuna;
             private string _descricao;
@@ -31,7 +31,7 @@ namespace LetsMarket
 
         public static void EfetuarVenda()
         {
-            var total = decimal.Zero;
+            var total = decimal.Zero; //qual a diferença de colocar o 0? 
             var max = Database.Produtos.Max(x => x.Description.Length);
             ItemVenda.SetTamanho(max);
 
@@ -55,7 +55,7 @@ namespace LetsMarket
             */
 
             var produtos = Database.Produtos.ToList();
-            var sair = new Produto { Codigo = "-1", Description = "Sair", Price = 0 };
+            var sair = new Produto { Codigo = "-1", Description = "Sair", Price = 0 }; //tem como melhorar?
             var fecharVenda = new Produto { Codigo = "-1", Description = "Fechar Venda", Price = 0 };
             var cancelarItem = new Produto { Codigo = "-1", Description = "Cancelar Item", Price = 0 };
 
@@ -83,7 +83,23 @@ namespace LetsMarket
 
                 // Early Return
                 produto = Prompt.Select("Selecione o produto", produtos);
-                if (produto != sair && produto != fecharVenda && produto != cancelarItem)
+
+                if (produto == sair || produto == fecharVenda)
+                {
+                    break;
+                }
+
+                if (produto == cancelarItem)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Selecione o item a ser cancelado");
+                    var item = Prompt.Select("Selecione o item a ser cancelado", itensVenda);
+                    itensVenda.Remove(item);
+
+                    total -= item.PrecoUnitario;
+                }
+
+                else 
                 {
                     var quantidade = Prompt.Input<int>("Informe a quantidade", defaultValue: 1);
                     var item = new ItemVenda
@@ -96,17 +112,8 @@ namespace LetsMarket
                     itensVenda.Add(item);
                     total += item.Subtotal;
                 }
-
-                if (produto == cancelarItem)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Selecione o item a ser cancelado");
-                    var item = Prompt.Select("Selecione o item a ser cancelado", itensVenda);
-                    itensVenda.Remove(item);
-
-                    total -= item.PrecoUnitario;
-                }
-            } while (produto != sair && produto != fecharVenda);
+               
+            } while (true);
 
             if (produto == fecharVenda)
             {

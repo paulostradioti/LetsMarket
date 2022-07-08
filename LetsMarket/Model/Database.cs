@@ -23,6 +23,12 @@ namespace LetsMarket
             InitializeDatabase();
         }
 
+        public static void Add(Funcionario input)
+        {
+            Funcionarios.Add(input);
+            //Como diferenciar os tipos dentro dessa lista
+        }
+
         public static void InitializeDatabase()
         {
             if (!File.Exists(_employeesDb))
@@ -46,6 +52,7 @@ namespace LetsMarket
                     Save(DatabaseOption.Products);
                 }
             }
+        
 
             if (!File.Exists(_clientsDb))
             {
