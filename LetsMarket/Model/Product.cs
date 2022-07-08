@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LetsMarket
 {
-    public class Produto
+    public class Product
     {
         [Display(Name = "Código")]
         [Required(ErrorMessage = "O código é obrigatório")]
-        public string Codigo { get; set; }
+        public string Code { get; set; }
 
         [Display(Name = "Descrição")]
         [Required(ErrorMessage = "A descrição é obrigatória")]
@@ -20,13 +20,13 @@ namespace LetsMarket
 
         
 
-        public static void ListarProdutos()
+        public static void ListProduct()
         {
             Console.WriteLine("Listando Produtos");
             Console.WriteLine();
 
             var table = new Table(TableConfiguration.UnicodeAlt());
-            table.From(Database.Produtos);
+            table.From(Database.Products);
             Console.WriteLine(table.ToString());
         }
 
@@ -35,24 +35,24 @@ namespace LetsMarket
             return Description;
         }
 
-        public static void EditarProduto()
+        public static void EditProduct()
         {
-            var produto = Prompt.Select("Selecione o Produto para Editar", Database.Produtos, defaultValue: Database.Produtos[0]);
+            var produto = Prompt.Select("Selecione o Produto para Editar", Database.Products, defaultValue: Database.Products[0]);
 
             Prompt.Bind(produto);
 
             Database.Save(DatabaseOption.Products);
         }
 
-        public static void RemoverProduto()
+        public static void RemoveProduct()
         {
-            var produto = Prompt.Select("Selecione o Produto para Remover", Database.Produtos);
+            var product = Prompt.Select("Selecione o Produto para Remover", Database.Products);
             var confirm = Prompt.Confirm("Tem Certeza?", false);
 
             if (!confirm)
                 return;
 
-            Database.Produtos.Remove(produto);
+            Database.Products.Remove(product);
             Database.Save(DatabaseOption.Products);
         }
     }

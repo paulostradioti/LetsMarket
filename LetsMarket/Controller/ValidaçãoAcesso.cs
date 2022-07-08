@@ -33,7 +33,7 @@ namespace LetsMarket
                 if (LoginIsValid(username, password))
                 {
                     loggedIn = true;
-                    Database.Funcionarios.Remove(new Funcionario { Nome = "Admin", Login = "admin", Password = "admin" });
+                    Database.Employee.Remove(new Employee { Name = "Admin", Login = "admin", Password = "admin" });
                     //Sugerir criação do método Remover e Adicionar no Database
                 }                    
             } while (!loggedIn);
@@ -42,7 +42,7 @@ namespace LetsMarket
 
         private static bool LoginIsValid(string? username, string password)
         {
-            foreach (var user in Database.Funcionarios)
+            foreach (var user in Database.Employee)
             {
                 if (user.Login.ToLower() == username.ToLower() && user.Password == password)
                     return true;

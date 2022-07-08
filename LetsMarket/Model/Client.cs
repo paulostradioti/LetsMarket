@@ -4,63 +4,69 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LetsMarket
 {
-    public class Cliente
+    public class Client
     {
         [Display(Name = "Nome")]
         [Required]
-        public string Nome { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "Documento")]
         [Required(ErrorMessage = "O Documento é Obrigatório")]
         [MinLength(11)]
         [MaxLength(11)]
-        public string Documento { get; set; }
+        public string Document { get; set; }
 
 
         [Display(Name = "Categoria")]
         public ClientCategory? Category { get; set; }
 
-       
-        public static void ListarClientes()
+        public enum ClientCategory
+        {
+            Bronze,
+            Prata,
+            Ouro,
+        }
+
+        public static void ListCLients()
         {
             Console.WriteLine("Listando Clientes");
             Console.WriteLine();
 
             var table = new Table(TableConfiguration.UnicodeAlt());
-            table.From(Database.Clientes);
+            table.From(Database.Clients);
             Console.WriteLine(table.ToString());
         }
 
         public override string ToString()
         {
-            return $"{Nome} - {Documento}";
+            return $"{Name} - {Document}";
         }
 
-        public static void EditarClientes()
+        public static void EditClients()
         {
-            var client = Prompt.Select("Selecione o Cliente para Editar", Database.Clientes, defaultValue: Database.Clientes[0]);
+            var client = Prompt.Select("Selecione o Cliente para Editar", Database.Clients, defaultValue: Database.Clients[0]);
 
             Prompt.Bind(client);
 
             Database.Save(DatabaseOption.Clients);
         }
 
-        public static void RemoverClientes()
+        public static void RemoveClients()
         {
-            if (Database.Clientes.Count == 1)
+            if (Database.Clients.Count == 1)
             {
                 ConsoleInputLogin.WriteError("Não é possível remover todos os usuários.");
                 Console.ReadKey();
                 return;
             }
 
-            var client = Prompt.Select("Selecione o Cliente para Remover", Database.Clientes);
+            var client = Prompt.Select("Selecione o Cliente para Remover", Database.Clients);
             var confirm = Prompt.Confirm("Tem Certeza?", false);
 
             if (!confirm)
                 return;
 
-            Database.Clientes.Remove(client);
+            Database.Clients.Remove(client);
             Database.Save(DatabaseOption.Clients);
         }
     }
