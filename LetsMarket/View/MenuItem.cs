@@ -132,7 +132,42 @@
         {
             return title;
         }
+        public static void CreateMenus()
+        {
+            var menu = new MenuItem("Menu Principal");
+
+            var product = new MenuItem("Produtos");
+            product.Add(new MenuItem("Cadastrar Produtos", Product.AddProduct));
+            product.Add(new MenuItem("Listar Produtos", Product.ListProduct));
+            product.Add(new MenuItem("Editar Produtos", Product.EditProduct));
+            product.Add(new MenuItem("Remover Produtos", Product.RemoveProduct));
+
+            var funcionarios = new MenuItem("Funcionários");
+            funcionarios.Add(new MenuItem("Cadastrar Funcionários", Employee.Add));
+            funcionarios.Add(new MenuItem("Listar Funcionários", Employee.List));
+            funcionarios.Add(new MenuItem("Editar Funcionários", Employee.Edit));
+            funcionarios.Add(new MenuItem("Remover Funcionários", Employee.Remove));
+
+            var clientes = new MenuItem("Clientes");
+            clientes.Add(new MenuItem("Cadastrar Clientes", Client.Add));
+            clientes.Add(new MenuItem("Listar Clientes", Client.List));
+            clientes.Add(new MenuItem("Editar Clientes", Client.Edit));
+            clientes.Add(new MenuItem("Remover Clientes", Client.Remove));
+
+            var vendas = new MenuItem("Vendas");
+            vendas.Add(new MenuItem("Efetuar Venda", Vendas.EfetuarVenda));
+
+            menu.Add(product);
+            menu.Add(funcionarios);
+            menu.Add(clientes);
+            menu.Add(vendas);
+            menu.Add(new MenuItem("Sair", () => Environment.Exit(0)));
+
+            menu.Execute();
+
+        }
     }
+    
 
     public enum MenuType
     {

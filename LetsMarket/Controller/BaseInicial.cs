@@ -13,39 +13,6 @@ namespace LetsMarket
      // produtos e clientes, acho que eles deveriam ficar no Controller,
      // pois depende de um input de usuário e impacta diretamente os dados do negócio
 
-        public static void CadastrarClientes()
-        {
-            var empregado = Prompt.Bind<Client>();
-
-            var save = Prompt.Confirm("Deseja Salvar?");
-            if (!save)
-                return;
-
-            Database.Clients.Add(empregado);
-            Database.Save(DatabaseOption.Clients);
-        }
-
-        public static void CadastrarProdutos()
-        {
-            var product = Prompt.Bind<Product>();
-
-            if (!Prompt.Confirm("Deseja Salvar?"))
-                return;
-
-            Database.Products.Add(product);
-            Database.Save(DatabaseOption.Products);
-        }
-        public static void CadastrarFuncionarios()
-        {
-            var empregado = Prompt.Bind<Employee>();
-            var save = Prompt.Confirm("Deseja Salvar?");
-            if (!save)
-                return;
-
-            Database.Add(empregado);
-            Database.Save(DatabaseOption.Employee);
-        }
-
         private static string CreateLoginSuggestionBasedOnName(string nome) //usar ou retirar
         {
             var parts = nome?.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);

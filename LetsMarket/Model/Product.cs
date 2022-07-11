@@ -18,7 +18,16 @@ namespace LetsMarket
         [Required(ErrorMessage = "O preço é obrigatório")]
         public decimal Price { get; set; }
 
-        
+        public static void AddProduct()
+        {
+            var product = Prompt.Bind<Product>();
+
+            if (!Prompt.Confirm("Deseja Salvar?"))
+                return;
+
+            Database.Products.Add(product);
+            Database.Save(DatabaseOption.Products);
+        }
 
         public static void ListProduct()
         {
