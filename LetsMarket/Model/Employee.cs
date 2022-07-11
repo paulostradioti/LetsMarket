@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LetsMarket
 {
-    public class Employee
+    public class Employee : IPessoa
     {
         [Display(Name = "Nome")]
         [Required]
@@ -34,7 +34,17 @@ namespace LetsMarket
             Assistant,
         }
 
-        public static void ListEmployee()
+        public static void Add()
+        {
+            var employee = Prompt.Bind<Employee>();
+            var save = Prompt.Confirm("Deseja Salvar?");
+            if (!save)
+                return;
+
+            Database.Add(employee);
+            Database.Save(DatabaseOption.Employee);
+        }
+        public static void List()
         {
             Console.WriteLine("Listando Funcionários");
             Console.WriteLine();
@@ -49,7 +59,7 @@ namespace LetsMarket
             return Name;
         }
 
-        public static void EditEmployee()
+        public static void Edit()
         {
             var employee = Prompt.Select("Selecione o Funcionário para Editar", Database.Employee, defaultValue: Database.Employee[0]);
 
@@ -58,7 +68,7 @@ namespace LetsMarket
             Database.Save(DatabaseOption.Employee);
         }
 
-        public static void RemoveEmployee()
+        public static void Remove()
         {
             if (Database.Employee.Count == 1)
             {
