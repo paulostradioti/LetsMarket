@@ -1,6 +1,4 @@
-﻿using LetsMarket.Business;
-using LetsMarket.Infrastructure;
-using Sharprompt;
+﻿using Sharprompt;
 
 namespace LetsMarket
 {
@@ -8,35 +6,33 @@ namespace LetsMarket
     {     
         static void Main()
         {
-            ConfigureApplication();
-            AuthenticateUser();
-            ShowMainMenu();
-        }
+            ConfiguraPrompt();
+            Console.Title = "Let's Store";
 
-        private static void ShowMainMenu()
-        {
+            VerificaLogin();
+
             var menu = new MenuItem("Menu Principal");
 
             var produtos = new MenuItem("Produtos");
-            produtos.Add(new MenuItem("Cadastrar Produtos", Product.RegisterNewProduct));
-            produtos.Add(new MenuItem("Listar Produtos", Product.ListExistingProcuts));
-            produtos.Add(new MenuItem("Editar Produtos", Product.EditExistingProduct));
-            produtos.Add(new MenuItem("Remover Produtos", Product.RemoveExistingProduct));
+            produtos.Add(new MenuItem("Cadastrar Produtos", Produto.CadastrarProdutos));
+            produtos.Add(new MenuItem("Listar Produtos", Produto.ListarProdutos));
+            produtos.Add(new MenuItem("Editar Produtos", Produto.EditarProduto));
+            produtos.Add(new MenuItem("Remover Produtos", Produto.RemoverProduto));
 
             var funcionarios = new MenuItem("Funcionários");
-            funcionarios.Add(new MenuItem("Cadastrar Funcionários", Employee.RegisterNewEmployee));
-            funcionarios.Add(new MenuItem("Listar Funcionários", Employee.ListExistingEmployees));
-            funcionarios.Add(new MenuItem("Editar Funcionários", Employee.EditExistingEmployee));
-            funcionarios.Add(new MenuItem("Remover Funcionários", Employee.RemoveExistingEmployee));
+            funcionarios.Add(new MenuItem("Cadastrar Funcionários", Funcionario.CadastrarFuncionarios));
+            funcionarios.Add(new MenuItem("Listar Funcionários", Funcionario.ListarFuncionarios));
+            funcionarios.Add(new MenuItem("Editar Funcionários", Funcionario.EditarFuncionarios));
+            funcionarios.Add(new MenuItem("Remover Funcionários", Funcionario.RemoverFuncionarios));
 
             var clientes = new MenuItem("Clientes");
-            clientes.Add(new MenuItem("Cadastrar Clientes", Client.RegisterNewClient));
-            clientes.Add(new MenuItem("Listar Clientes", Client.ListExistingClients));
-            clientes.Add(new MenuItem("Editar Clientes", Client.EditExistingClient));
-            clientes.Add(new MenuItem("Remover Clientes", Client.RemoveExistingClient));
+            clientes.Add(new MenuItem("Cadastrar Clientes", Cliente.CadastrarClientes));
+            clientes.Add(new MenuItem("Listar Clientes", Cliente.ListarClientes));
+            clientes.Add(new MenuItem("Editar Clientes", Cliente.EditarClientes));
+            clientes.Add(new MenuItem("Remover Clientes", Cliente.RemoverClientes));
 
             var vendas = new MenuItem("Vendas");
-            vendas.Add(new MenuItem("Efetuar Venda", Sale.EfetuarVenda));
+            vendas.Add(new MenuItem("Efetuar Venda", Vendas.EfetuarVenda));
 
             menu.Add(produtos);
             menu.Add(funcionarios);
@@ -47,10 +43,8 @@ namespace LetsMarket
             menu.Execute();
         }
 
-        private static void ConfigureApplication()
+        private static void ConfiguraPrompt()
         {
-            Console.Title = "Let's Store";
-
             Prompt.ColorSchema.Answer = ConsoleColor.White;
             Prompt.ColorSchema.Select = ConsoleColor.White;
 
@@ -59,7 +53,7 @@ namespace LetsMarket
             Prompt.Symbols.Error = new Symbol("", "");
         }
 
-        private static void AuthenticateUser()
+        private static void VerificaLogin()
         {
             var loggedIn = false;
             var attempts = 0;
