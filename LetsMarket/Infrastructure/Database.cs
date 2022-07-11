@@ -6,9 +6,9 @@ using System.Xml.Serialization;
 
 namespace LetsMarket.Infrastructure
 {
-    public enum DatabaseOption { Funcionarios, Products, Clients }
+    internal enum DatabaseOption { Funcionarios, Products, Clients }
 
-    public class Database
+    internal class Database
     {
         private static readonly string _rootDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private static readonly string _employeesDb = Path.Combine(_rootDirectory, "employees.xml");

@@ -2,7 +2,7 @@
 
 namespace LetsMarket.Constants
 {
-    public enum EmployeeCategory
+    internal enum EmployeeCategory
     {
         [Display(Name = "Caixa")]
         Cashier,

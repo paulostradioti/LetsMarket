@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LetsMarket.Business
 {
-    public class Product
+    internal class Product
     {
         [Display(Name = "Código")]
         [Required(ErrorMessage = "O código é obrigatório")]

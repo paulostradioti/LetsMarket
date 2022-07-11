@@ -5,7 +5,7 @@ using LetsMarket.Constants;
 
 namespace LetsMarket.Infrastructure
 {
-    public static class ClienteFaker
+    internal static class ClienteFaker
     {
         public static Faker<Client> Gerar()
         {

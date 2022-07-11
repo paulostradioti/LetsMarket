@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LetsMarket.Infrastructure
 {
-    public static class ConsoleInput
+    internal static class ConsoleInput
     {
         public static int GetInt(string prompt)
         {

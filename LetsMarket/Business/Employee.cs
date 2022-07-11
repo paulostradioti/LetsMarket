@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LetsMarket.Business
 {
-    public class Employee
+    internal class Employee
     {
         [Display(Name = "Nome")]
         [Required(ErrorMessage = "O nome é obrigatório")]

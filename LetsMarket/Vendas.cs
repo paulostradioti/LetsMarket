@@ -5,7 +5,7 @@ using Sharprompt;
 
 namespace LetsMarket
 {
-    public class Sale
+    internal class Sale
     {
         public class SaleItem
         {

@@ -1,7 +1,7 @@
 ﻿namespace LetsMarket.Infrastructure
 {
 
-    public class MenuItem
+    internal class MenuItem
     {
         private const string UNSELECTED = "|     ";
         private const string SELECTED = "|   » ";

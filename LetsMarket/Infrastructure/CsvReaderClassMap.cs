@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LetsMarket.Infrastructure
 {
-    public class CsvReaderClassMap : ClassMap<Product>
+    internal class CsvReaderClassMap : ClassMap<Product>
     {
         public CsvReaderClassMap()
         {

@@ -2,7 +2,7 @@
 
 namespace LetsMarket.Constants
 {
-    public enum ClientCategory
+    internal enum ClientCategory
     {
         [Display(Name = "Bronze")]
         Bronze,
