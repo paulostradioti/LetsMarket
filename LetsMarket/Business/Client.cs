@@ -1,4 +1,5 @@
 ﻿using BetterConsoleTables;
+using LetsMarket.Abstractions;
 using LetsMarket.Constants;
 using LetsMarket.Infrastructure;
 using Sharprompt;
@@ -6,8 +7,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LetsMarket.Business
 {
-    internal class Client
+    internal class Client : IDbEntity
     {
+        private readonly IClientRepository clientRepository;
+
         [Display(Name = "Nome")]
         [Required(ErrorMessage = "O Nome é Obrigatório")]
         public string Name { get; set; }
@@ -19,6 +22,11 @@ namespace LetsMarket.Business
         [Display(Name = "Categoria")]
         [Required(ErrorMessage = "A Categoria é obrigatória.")]
         public ClientCategory? Category { get; set; }
+
+        public Client(IClientRepository clientRepository)
+        {
+            this.clientRepository = clientRepository;
+        }
 
         public static void RegisterNewClient()
         {
