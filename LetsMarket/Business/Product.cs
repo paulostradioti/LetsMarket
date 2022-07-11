@@ -1,14 +1,15 @@
 ﻿using BetterConsoleTables;
+using LetsMarket.Infrastructure;
 using Sharprompt;
 using System.ComponentModel.DataAnnotations;
 
-namespace LetsMarket
+namespace LetsMarket.Business
 {
-    public class Produto
+    public class Product
     {
         [Display(Name = "Código")]
         [Required(ErrorMessage = "O código é obrigatório")]
-        public string Codigo { get; set; }
+        public string Code { get; set; }
 
         [Display(Name = "Descrição")]
         [Required(ErrorMessage = "A descrição é obrigatória")]
@@ -18,9 +19,9 @@ namespace LetsMarket
         [Required(ErrorMessage = "O preço é obrigatório")]
         public decimal Price { get; set; }
 
-        public static void CadastrarProdutos()
+        public static void RegisterNewProduct()
         {
-            var product = Prompt.Bind<Produto>();
+            var product = Prompt.Bind<Product>();
 
             if (!Prompt.Confirm("Deseja Salvar?"))
                 return;
@@ -29,7 +30,7 @@ namespace LetsMarket
             Database.Save(DatabaseOption.Products);
         }
 
-        public static void ListarProdutos()
+        public static void ListExistingProcuts()
         {
             Console.WriteLine("Listando Produtos");
             Console.WriteLine();
@@ -39,12 +40,7 @@ namespace LetsMarket
             Console.WriteLine(table.ToString());
         }
 
-        public override string ToString()
-        {
-            return Description;
-        }
-
-        public static void EditarProduto()
+        public static void EditExistingProduct()
         {
             var produto = Prompt.Select("Selecione o Produto para Editar", Database.Produtos, defaultValue: Database.Produtos[0]);
 
@@ -53,7 +49,7 @@ namespace LetsMarket
             Database.Save(DatabaseOption.Products);
         }
 
-        public static void RemoverProduto()
+        public static void RemoveExistingProduct()
         {
             var produto = Prompt.Select("Selecione o Produto para Remover", Database.Produtos);
             var confirm = Prompt.Confirm("Tem Certeza?", false);
@@ -63,6 +59,11 @@ namespace LetsMarket
 
             Database.Produtos.Remove(produto);
             Database.Save(DatabaseOption.Products);
+        }
+
+        public override string ToString()
+        {
+            return Description;
         }
     }
 }

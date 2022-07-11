@@ -1,11 +1,13 @@
 ﻿using BetterConsoleTables;
+using LetsMarket.Business;
+using LetsMarket.Infrastructure;
 using Sharprompt;
 
 namespace LetsMarket
 {
-    public class Vendas
+    public class Sale
     {
-        public class ItemVenda
+        public class SaleItem
         {
             private static int _maiorColuna;
             private string _descricao;
@@ -33,9 +35,9 @@ namespace LetsMarket
         {
             var total = decimal.Zero;
             var max = Database.Produtos.Max(x => x.Description.Length);
-            ItemVenda.SetTamanho(max);
+            SaleItem.SetTamanho(max);
 
-            var itensVenda = new List<ItemVenda>();
+            var itensVenda = new List<SaleItem>();
 
 
             /*
@@ -55,15 +57,15 @@ namespace LetsMarket
             */
 
             var produtos = Database.Produtos.ToList();
-            var sair = new Produto { Codigo = "-1", Description = "Sair", Price = 0 };
-            var fecharVenda = new Produto { Codigo = "-1", Description = "Fechar Venda", Price = 0 };
-            var cancelarItem = new Produto { Codigo = "-1", Description = "Cancelar Item", Price = 0 };
+            var sair = new Product { Code = "-1", Description = "Sair", Price = 0 };
+            var fecharVenda = new Product { Code = "-1", Description = "Fechar Venda", Price = 0 };
+            var cancelarItem = new Product { Code = "-1", Description = "Cancelar Item", Price = 0 };
 
             produtos.Add(cancelarItem);
             produtos.Add(fecharVenda);
             produtos.Add(sair);
 
-            Produto produto = null;
+            Product produto = null;
             do
             {
                 Console.Clear();
@@ -74,7 +76,7 @@ namespace LetsMarket
 
                 if (itensVenda.Count > 0)
                 {
-                    relatorio.From<ItemVenda>(itensVenda);
+                    relatorio.From<SaleItem>(itensVenda);
                     Console.WriteLine(relatorio.ToString());
                 }
 
@@ -86,9 +88,9 @@ namespace LetsMarket
                 if (produto != sair && produto != fecharVenda && produto != cancelarItem)
                 {
                     var quantidade = Prompt.Input<int>("Informe a quantidade", defaultValue: 1);
-                    var item = new ItemVenda
+                    var item = new SaleItem
                     {
-                        Codigo = produto.Codigo,
+                        Codigo = produto.Code,
                         Descricao = produto.Description,
                         PrecoUnitario = produto.Price,
                         Quantidade = quantidade
