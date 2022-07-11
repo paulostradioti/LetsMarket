@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LetsMarket
+namespace LetsMarket.Infrastructure
 {
     public static class ConsoleInput
     {
@@ -33,31 +33,9 @@ namespace LetsMarket
         }
 
         public static string GetPassword(string prompt)
-        { 
+        {
             var password = ConsolePasswordReader.Read($"{prompt}: ");
             return password;
-        }
-
-        public static bool GetBoolean(string prompt, BooleanType type)
-        {
-            var opcoes = type switch
-            {
-                BooleanType.YN => "S/N",
-                _ => "true/false"
-            };
-
-            Console.Write($"{prompt}? ({opcoes}) ");
-            string input = Console.ReadLine() ?? string.Empty;
-
-            if (type == BooleanType.YN)
-            {
-                if (input.ToLower() == "s")
-                    input = "true";
-                else 
-                    input = "false";
-            }
-
-            return Convert.ToBoolean(input);
         }
 
         public static void WriteError(string message)

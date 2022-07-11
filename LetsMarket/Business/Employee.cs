@@ -1,17 +1,19 @@
 ﻿using BetterConsoleTables;
+using LetsMarket.Constants;
+using LetsMarket.Infrastructure;
 using Sharprompt;
 using System.ComponentModel.DataAnnotations;
 
-namespace LetsMarket
+namespace LetsMarket.Business
 {
-    public class Funcionario
+    public class Employee
     {
         [Display(Name = "Nome")]
-        [Required]
-        public string Nome { get; set; }
+        [Required(ErrorMessage = "O nome é obrigatório")]
+        public string Name { get; set; }
 
         [Display(Name = "Login")]
-        [Required]
+        [Required(ErrorMessage = "O login é obrigatório")]
         public string Login { get; set; }
 
         [Display(Name = "Senha")]
@@ -20,11 +22,12 @@ namespace LetsMarket
         public string Password { get; set; }
 
         [Display(Name = "Categoria")]
+        [Required(ErrorMessage = "A categoria é obrigatória")]
         public EmployeeCategory Category { get; set; }
 
-        public static void CadastrarFuncionarios()
+        public static void RegisterNewEmployee()
         {
-            var empregado = Prompt.Bind<Funcionario>();
+            var empregado = Prompt.Bind<Employee>();
             var save = Prompt.Confirm("Deseja Salvar?");
             if (!save)
                 return;
@@ -33,15 +36,7 @@ namespace LetsMarket
             Database.Save(DatabaseOption.Funcionarios);
         }
 
-        private static string CreateLoginSuggestionBasedOnName(string nome)
-        {
-            var parts = nome?.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-            var suggestion = parts?.Length > 0 ? (parts.Length > 1 ? $"{parts[0]}.{parts[parts.Length - 1]}" : $"{parts[0]}") : "";
-
-            return suggestion.ToLower();
-        }
-
-        public static void ListarFuncionarios()
+        public static void ListExistingEmployees()
         {
             Console.WriteLine("Listando Funcionários");
             Console.WriteLine();
@@ -51,12 +46,7 @@ namespace LetsMarket
             Console.WriteLine(table.ToString());
         }
 
-        public override string ToString()
-        {
-            return Nome;
-        }
-
-        public static void EditarFuncionarios()
+        public static void EditExistingEmployee()
         {
             var employee = Prompt.Select("Selecione o Funcionário para Editar", Database.Funcionarios, defaultValue: Database.Funcionarios[0]);
 
@@ -65,7 +55,7 @@ namespace LetsMarket
             Database.Save(DatabaseOption.Funcionarios);
         }
 
-        public static void RemoverFuncionarios()
+        public static void RemoveExistingEmployee()
         {
             if (Database.Funcionarios.Count == 1)
             {
@@ -82,6 +72,11 @@ namespace LetsMarket
 
             Database.Funcionarios.Remove(employee);
             Database.Save(DatabaseOption.Funcionarios);
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

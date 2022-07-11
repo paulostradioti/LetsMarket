@@ -1,28 +1,28 @@
 ﻿using BetterConsoleTables;
+using LetsMarket.Constants;
+using LetsMarket.Infrastructure;
 using Sharprompt;
 using System.ComponentModel.DataAnnotations;
 
-namespace LetsMarket
+namespace LetsMarket.Business
 {
-    public class Cliente
+    public class Client
     {
         [Display(Name = "Nome")]
-        [Required]
-        public string Nome { get; set; }
+        [Required(ErrorMessage = "O Nome é Obrigatório")]
+        public string Name { get; set; }
 
         [Display(Name = "Documento")]
-        [Required(ErrorMessage = "O Documento é Obrigatório")]
-        [MinLength(11)]
-        [MaxLength(11)]
-        public string Documento { get; set; }
-
+        [StringLength(maximumLength: 11, MinimumLength = 11, ErrorMessage = "O documento deve ter 11 dígitos numéricos (CPF). Não use pontuação.")]
+        public string Document { get; set; }
 
         [Display(Name = "Categoria")]
+        [Required(ErrorMessage = "A Categoria é obrigatória.")]
         public ClientCategory? Category { get; set; }
 
-        public static void CadastrarClientes()
+        public static void RegisterNewClient()
         {
-            var empregado = Prompt.Bind<Cliente>();
+            var empregado = Prompt.Bind<Client>();
 
             var save = Prompt.Confirm("Deseja Salvar?");
             if (!save)
@@ -31,7 +31,8 @@ namespace LetsMarket
             Database.Clientes.Add(empregado);
             Database.Save(DatabaseOption.Clients);
         }
-        public static void ListarClientes()
+
+        public static void ListExistingClients()
         {
             Console.WriteLine("Listando Clientes");
             Console.WriteLine();
@@ -41,21 +42,14 @@ namespace LetsMarket
             Console.WriteLine(table.ToString());
         }
 
-        public override string ToString()
-        {
-            return $"{Nome} - {Documento}";
-        }
-
-        public static void EditarClientes()
+        public static void EditExistingClient()
         {
             var client = Prompt.Select("Selecione o Cliente para Editar", Database.Clientes, defaultValue: Database.Clientes[0]);
-
             Prompt.Bind(client);
-
             Database.Save(DatabaseOption.Clients);
         }
 
-        public static void RemoverClientes()
+        public static void RemoveExistingClient()
         {
             if (Database.Clientes.Count == 1)
             {
@@ -72,6 +66,11 @@ namespace LetsMarket
 
             Database.Clientes.Remove(client);
             Database.Save(DatabaseOption.Clients);
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} - {Document}";
         }
     }
 }

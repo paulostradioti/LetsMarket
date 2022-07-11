@@ -1,4 +1,4 @@
-﻿namespace LetsMarket
+﻿namespace LetsMarket.Infrastructure
 {
 
     public class MenuItem
@@ -9,7 +9,6 @@
 
         public MenuType Type { get; }
         private static MenuItem _root;
-        private MenuItem parent = null;
         private string title;
         private List<MenuItem> items;
         private Action action;
@@ -31,7 +30,6 @@
 
         public void Add(MenuItem menuItem)
         {
-            menuItem.parent = this;
             items.Add(menuItem);
         }
 
@@ -70,7 +68,7 @@
                     Console.Clear();
 
                     var menuTitle = $"{UNSELECTED}{title.ToUpperInvariant().PadRight(LINE_WIDTH)}|";
-                    var lineSeparator = $"|{new String('-', menuTitle.Length - 2)}|";
+                    var lineSeparator = $"|{new string('-', menuTitle.Length - 2)}|";
 
                     Console.WriteLine(lineSeparator);
                     Console.WriteLine(menuTitle);
