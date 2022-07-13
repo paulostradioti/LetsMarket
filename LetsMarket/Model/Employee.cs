@@ -72,7 +72,7 @@ namespace LetsMarket
         {
             if (Database.Employee.Count == 1)
             {
-                ConsoleInputLogin.WriteError("Não é possível remover todos os usuários.");
+                ConsoleInput.WriteError("Não é possível remover todos os usuários.");
                 Console.ReadKey();
                 return;
             }

@@ -1,13 +1,8 @@
 ﻿using GetPass;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LetsMarket
 {
-    public static class ConsoleInputLogin
+    public static class ConsoleInput
     {
         //public static int GetInt(string prompt)
         //{
@@ -18,16 +13,18 @@ namespace LetsMarket
         //    return value;
         //} 
 
-        public static string GetString(string prompt, string suggestion = "")
-        {
-            if (!string.IsNullOrEmpty(suggestion))
-                suggestion = $" ({suggestion})";
 
-            Console.Write($"{prompt}{suggestion}: ");
+        public static string GetString(string prompt/*, string suggestion = ""*/)
+        {
+            //if (!string.IsNullOrEmpty(suggestion))
+            //    suggestion = $" ({suggestion})";
+
+            //Console.Write($"{prompt}{suggestion}: ");
+            Console.Write($"{prompt}: ");
             var input = Console.ReadLine() ?? string.Empty;
 
-            if (string.IsNullOrWhiteSpace(input) && !string.IsNullOrWhiteSpace(suggestion))
-                input = suggestion;
+            //if (string.IsNullOrWhiteSpace(input) && !string.IsNullOrWhiteSpace(suggestion))
+            //    input = suggestion;
 
             return input;
         }

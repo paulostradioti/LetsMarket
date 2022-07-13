@@ -1,4 +1,6 @@
-﻿namespace LetsMarket
+﻿using LetsMarket.Controller;
+
+namespace LetsMarket
 {
 
     public class MenuItem
@@ -155,7 +157,10 @@
             clientes.Add(new MenuItem("Remover Clientes", Client.Remove));
 
             var vendas = new MenuItem("Vendas");
-            vendas.Add(new MenuItem("Efetuar Venda", Vendas.EfetuarVenda));
+
+            IReceiptDesign receiptDesign = new ReceiptDesign();
+            var sales = new Sales(receiptDesign);
+            vendas.Add(new MenuItem("Efetuar Venda", sales.SellItems));
 
             menu.Add(product);
             menu.Add(funcionarios);
