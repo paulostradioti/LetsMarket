@@ -41,8 +41,8 @@ namespace LetsMarket
             if (!save)
                 return;
 
-            Database.Add(employee);
-            Database.Save(DatabaseOption.Employee);
+            InitializeDatabase.Add(employee);
+            InitializeDatabase.Save(DatabaseOption.Employee);
         }
         public static void List()
         {
@@ -50,7 +50,7 @@ namespace LetsMarket
             Console.WriteLine();
 
             var table = new Table(TableConfiguration.UnicodeAlt());
-            table.From(Database.Employee);
+            table.From(InitializeDatabase.Employee);
             Console.WriteLine(table.ToString());
         }
 
@@ -61,30 +61,30 @@ namespace LetsMarket
 
         public static void Edit()
         {
-            var employee = Prompt.Select("Selecione o Funcionário para Editar", Database.Employee, defaultValue: Database.Employee[0]);
+            var employee = Prompt.Select("Selecione o Funcionário para Editar", InitializeDatabase.Employee, defaultValue: InitializeDatabase.Employee[0]);
 
             Prompt.Bind(employee);
 
-            Database.Save(DatabaseOption.Employee);
+            InitializeDatabase.Save(DatabaseOption.Employee);
         }
 
         public static void Remove()
         {
-            if (Database.Employee.Count == 1)
+            if (InitializeDatabase.Employee.Count == 1)
             {
                 ConsoleInput.WriteError("Não é possível remover todos os usuários.");
                 Console.ReadKey();
                 return;
             }
 
-            var employee = Prompt.Select("Selecione o Funcionário para Remover", Database.Employee);
+            var employee = Prompt.Select("Selecione o Funcionário para Remover", InitializeDatabase.Employee);
             var confirm = Prompt.Confirm("Tem Certeza?", false);
 
             if (!confirm)
                 return;
 
-            Database.Employee.Remove(employee);
-            Database.Save(DatabaseOption.Employee);
+            InitializeDatabase.Employee.Remove(employee);
+            InitializeDatabase.Save(DatabaseOption.Employee);
         }
     }
 }

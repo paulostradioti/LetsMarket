@@ -34,7 +34,7 @@ namespace LetsMarket
                 {
                     loggedIn = true;
                     // O que fazer com a linha abaixo?
-                    Database.Employee.Remove(new Employee { Name = "Admin", Login = "admin", Password = "admin" });
+                    InitializeDatabase.Employee.Remove(new Employee { Name = "Admin", Login = "admin", Password = "admin" });
                 }
             } while (!loggedIn);
         }

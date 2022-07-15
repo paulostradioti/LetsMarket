@@ -27,7 +27,7 @@ namespace LetsMarket
             var columnWidth = _receiptDesign.SetColumnWidth();
 
             //Esta linha (abaixo)           
-            var products = Database.Products.ToList();
+            var products = InitializeDatabase.Products.ToList();
 
             //Refatorar aqui
             var exit = new Product { Code = "-1", Description = "Sair", Price = 0 };

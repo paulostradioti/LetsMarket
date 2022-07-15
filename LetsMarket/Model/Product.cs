@@ -25,8 +25,8 @@ namespace LetsMarket
             if (!Prompt.Confirm("Deseja Salvar?"))
                 return;
 
-            Database.Products.Add(product);
-            Database.Save(DatabaseOption.Products);
+            InitializeDatabase.Products.Add(product);
+            InitializeDatabase.Save(DatabaseOption.Products);
         }
 
         public static void ListProduct()
@@ -35,7 +35,7 @@ namespace LetsMarket
             Console.WriteLine();
 
             var table = new Table(TableConfiguration.UnicodeAlt());
-            table.From(Database.Products);
+            table.From(InitializeDatabase.Products);
             Console.WriteLine(table.ToString());
         }
 
@@ -46,23 +46,23 @@ namespace LetsMarket
 
         public static void EditProduct()
         {
-            var produto = Prompt.Select("Selecione o Produto para Editar", Database.Products, defaultValue: Database.Products[0]);
+            var produto = Prompt.Select("Selecione o Produto para Editar", InitializeDatabase.Products, defaultValue: InitializeDatabase.Products[0]);
 
             Prompt.Bind(produto);
 
-            Database.Save(DatabaseOption.Products);
+            InitializeDatabase.Save(DatabaseOption.Products);
         }
 
         public static void RemoveProduct()
         {
-            var product = Prompt.Select("Selecione o Produto para Remover", Database.Products);
+            var product = Prompt.Select("Selecione o Produto para Remover", InitializeDatabase.Products);
             var confirm = Prompt.Confirm("Tem Certeza?", false);
 
             if (!confirm)
                 return;
 
-            Database.Products.Remove(product);
-            Database.Save(DatabaseOption.Products);
+            InitializeDatabase.Products.Remove(product);
+            InitializeDatabase.Save(DatabaseOption.Products);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace LetsMarket.Controller
 
         public int SetColumnWidth()
         {
-            _columnWidth = Database.Products.Max(x => x.Description.Length);
+            _columnWidth = InitializeDatabase.Products.Max(x => x.Description.Length);
             return _columnWidth;
         }
 

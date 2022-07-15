@@ -35,8 +35,8 @@ namespace LetsMarket
             if (!save)
                 return;
 
-            Database.Clients.Add(employee);
-            Database.Save(DatabaseOption.Clients);
+            InitializeDatabase.Clients.Add(employee);
+            DatabaseHandler.Save(DatabaseOption.Clients);
         }
 
         public static void List()
@@ -45,7 +45,7 @@ namespace LetsMarket
             Console.WriteLine();
 
             var table = new Table(TableConfiguration.UnicodeAlt());
-            table.From(Database.Clients);
+            table.From(InitializeDatabase.Clients);
             Console.WriteLine(table.ToString());
         }
 
@@ -56,30 +56,30 @@ namespace LetsMarket
 
         public static void Edit()
         {
-            var client = Prompt.Select("Selecione o Cliente para Editar", Database.Clients, defaultValue: Database.Clients[0]);
+            var client = Prompt.Select("Selecione o Cliente para Editar", InitializeDatabase.Clients, defaultValue: InitializeDatabase.Clients[0]);
 
             Prompt.Bind(client);
 
-            Database.Save(DatabaseOption.Clients);
+            DatabaseHandler.Save(DatabaseOption.Clients);
         }
 
         public static void Remove()
         {
-            if (Database.Clients.Count == 1)
+            if (InitializeDatabase.Clients.Count == 1)
             {
                 ConsoleInput.WriteError("Não é possível remover todos os usuários.");
                 Console.ReadKey();
                 return;
             }
 
-            var client = Prompt.Select("Selecione o Cliente para Remover", Database.Clients);
+            var client = Prompt.Select("Selecione o Cliente para Remover", InitializeDatabase.Clients);
             var confirm = Prompt.Confirm("Tem Certeza?", false);
 
             if (!confirm)
                 return;
 
-            Database.Clients.Remove(client);
-            Database.Save(DatabaseOption.Clients);
+            InitializeDatabase.Clients.Remove(client);
+            DatabaseHandler.Save(DatabaseOption.Clients);
         }
     }
 }
