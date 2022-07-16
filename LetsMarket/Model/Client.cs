@@ -46,7 +46,7 @@ namespace LetsMarket
 
             var table = new Table(TableConfiguration.UnicodeAlt());
             table.From(InitializeDatabase.Clients);
-            Console.WriteLine(table.ToString());
+            Console.WriteLine(table.ToString()); 
         }
 
         public override string ToString()
