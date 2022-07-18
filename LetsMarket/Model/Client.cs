@@ -16,7 +16,7 @@ namespace LetsMarket
         [MaxLength(11)]
         public string Document { get; set; }
 
-
+        //add
         [Display(Name = "Categoria")]
         public ClientCategory? Category { get; set; }
 
